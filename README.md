@@ -6,4 +6,11 @@ This directory is the complete publication allowlist for the public Sediment lea
 - `index.html` renders the mobile-friendly public page.
 - Do not place prospect, customer, schedule, activity, or private operating information here.
 
-The deployment workflow uploads this directory only. No other repository content is published.
+Publish from the private operations repository with:
+
+```bash
+scripts/publish-learning.sh
+```
+
+The script uses `git subtree split`, so this directory becomes the root of the separate
+public `lihtness/sediment-learning` repository. No other repository content is published.
