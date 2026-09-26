@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A public learning track for understanding RIA compliance workflows.">
+    <title>Sediment Learning Track</title>
+    <style>
+      :root { --ink:#15221e; --muted:#66746e; --paper:#f4f1e9; --card:#fffdf8; --green:#176b54; --soft:#dcece5; --line:#d8d8cf; }
+      * { box-sizing:border-box; }
+      body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.55 system-ui,sans-serif; }
+      main { width:min(820px,calc(100% - 28px)); margin:auto; padding:44px 0 80px; }
+      h1,h2 { font-family:Georgia,serif; }
+      h1 { font-size:clamp(2.5rem,8vw,4.8rem); line-height:.95; margin:0 0 16px; }
+      h2 { margin-top:0; }
+      .eyebrow { color:var(--green); font-size:.75rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+      .muted { color:var(--muted); }
+      .card { background:var(--card); border:1px solid var(--line); border-radius:18px; margin:28px 0; padding:24px; box-shadow:0 8px 30px rgb(32 45 39 / 5%); }
+      .next { border-left:6px solid var(--green); }
+      .button { background:var(--green); border:0; border-radius:999px; color:white; cursor:pointer; display:inline-block; font:inherit; font-weight:750; margin:8px 8px 0 0; padding:11px 17px; text-decoration:none; }
+      .button.secondary { background:var(--soft); color:var(--green); }
+      ol.questions { padding-left:22px; }
+      .module { align-items:center; border-top:1px solid var(--line); display:grid; gap:12px; grid-template-columns:42px 1fr auto; padding:13px 0; }
+      .module:first-child { border-top:0; }
+      .number { color:var(--muted); font-variant-numeric:tabular-nums; }
+      .status { background:var(--soft); border-radius:999px; color:var(--green); font-size:.7rem; font-weight:800; padding:4px 8px; }
+      @media(max-width:520px){ .module { grid-template-columns:32px 1fr; } .status { grid-column:2; justify-self:start; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header><p class="eyebrow">Public curriculum</p><h1>Sediment learning track</h1><p class="muted">Practical fluency in RIA compliance workflows for better founder discovery. This is education, not legal advice.</p></header>
+      <section id="next" class="card next"><p>Loading next item…</p></section>
+      <section class="card"><p class="eyebrow">Eight modules</p><h2>Learning sequence</h2><div id="modules"></div></section>
+    </main>
+    <script>
+      const escapeHtml = value => String(value).replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
+      fetch('learning.json').then(response => response.json()).then(data => {
+        const item = data.next_listen;
+        const shareText = `${item.title}\n${item.url}\n\nListen for:\n${item.listen_for.map((q,i)=>`${i+1}. ${q}`).join('\n')}`;
+        document.querySelector('#next').innerHTML = `<p class="eyebrow">Next listen · Module ${data.current_module}</p><h2>${escapeHtml(item.title)}</h2><p class="muted">${escapeHtml(item.publisher)} · ${escapeHtml(item.format)}</p><p>${escapeHtml(item.why_now)}</p><h3>Listen for</h3><ol class="questions">${item.listen_for.map(q=>`<li>${escapeHtml(q)}</li>`).join('')}</ol><p><strong>After listening:</strong> ${escapeHtml(item.after_listening)}</p><a class="button" href="${escapeHtml(item.url)}" target="_blank" rel="noopener">Open source</a><button id="share" class="button secondary">Share</button>`;
+        document.querySelector('#modules').innerHTML = data.modules.map(module => `<div class="module"><span class="number">${String(module.number).padStart(2,'0')}</span><strong>${escapeHtml(module.title)}</strong><span class="status">${escapeHtml(module.status)}</span></div>`).join('');
+        document.querySelector('#share').addEventListener('click', async () => {
+          if (navigator.share) await navigator.share({title:item.title,text:shareText,url:item.url});
+          else { await navigator.clipboard.writeText(shareText); document.querySelector('#share').textContent='Copied'; }
+        });
+      }).catch(() => { document.querySelector('#next').innerHTML = '<p>Learning data could not be loaded.</p>'; });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "site_title": "Sediment Learning Track",
+  "current_module": 1,
+  "next_listen": {
+    "title": "Are You Ready To Outsource Your CCO?",
+    "publisher": "Oyster Consulting",
+    "format": "Practitioner podcast and transcript",
+    "url": "https://www.oysterllc.com/what-we-think/are-you-ready-to-outsource-your-cco/",
+    "why_now": "This practitioner discussion explains how outsourced CCO work is divided, scheduled, staffed, and kept connected to an RIA. It directly supports Module 1 discovery fluency.",
+    "listen_for": [
+      "Which compliance responsibilities remain with the RIA and which work is delegated?",
+      "Which tasks recur daily, monthly, quarterly, or annually?",
+      "How do outsourced CCO firms manage capacity, evidence, calendars, and client communication?"
+    ],
+    "after_listening": "Record one observation, one inference, one discovery question, and any terminology that remains unclear."
+  },
+  "modules": [
+    {"number": 1, "title": "RIA ecosystem", "status": "CURRENT"},
+    {"number": 2, "title": "Form ADV/IAPD", "status": "NEXT"},
+    {"number": 3, "title": "Compliance lifecycle and annual review", "status": "QUEUED"},
+    {"number": 4, "title": "Disclosures, enforcement, examinations", "status": "QUEUED"},
+    {"number": 5, "title": "Third-party / vendor / outside-manager diligence", "status": "QUEUED"},
+    {"number": 6, "title": "Ownership, control, affiliations, M&A", "status": "QUEUED"},
+    {"number": 7, "title": "Monitoring and compliance memory", "status": "QUEUED"},
+    {"number": 8, "title": "Commercial fluency", "status": "QUEUED"}
+  ]
+}
